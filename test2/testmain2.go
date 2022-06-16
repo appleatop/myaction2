@@ -2,6 +2,7 @@ package test2
 
 import "fmt"
 
-func Examplecode() {
-	fmt.Println("test2/examplecode")
+func Examplecode(strinput string) string {
+	outstring := fmt.Sprintf("test2/examplecode: %s", strinput)
+	return outstring
 }

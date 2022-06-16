@@ -1,4 +1,4 @@
-module myaction
+module myaction2
 
 go 1.18
 

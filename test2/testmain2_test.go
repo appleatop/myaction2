@@ -2,8 +2,9 @@ package test2_test
 
 import (
 	"fmt"
-	"myaction/test2"
+	"myaction2/test2"
 	"testing"
+
 	"github.com/bobbae/q"
 )
 
@@ -12,9 +13,21 @@ func init() {
 	q.P = ".*"
 }
 
-
 func TestProgram2(t *testing.T) {
 	fmt.Println("testing testprogram 2")
 	q.Q("testing testprogram 2")
- 	test2.Examplecode()
+}
+
+func TestExampleCode(t *testing.T) {
+	fmt.Println("testing testprogram 2/ example code")
+	q.Q("testing testprogram 2/ example code ")
+	//	output := test2.Examplecode("test pass")
+	output := test2.Examplecode("test error")
+	expect := "test2/examplecode: test error"
+	if output != expect {
+		t.Errorf("The result (%s) does not match %s", output, expect)
+	} else {
+		q.Q("run successfully")
+	}
+
 }

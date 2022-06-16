@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
-	"myaction/test1"
-	"myaction/test2"
-	"myaction/test3" 
-	"myaction/test4/a"
-	t3 "myaction/test5/a/b/c/test3"
+	"myaction2/test1"
+	"myaction2/test2"
+	"myaction2/test3"
+	"myaction2/test4/a"
+	t3 "myaction2/test5/a/b/c/test3"
+
 	"github.com/bobbae/q"
 )
 
@@ -19,7 +20,7 @@ func main() {
 	q.Q("TESTTESTTESTTEST TESTGO3")
 	fmt.Println("mainprogram")
 	test1.Tmain1()
-	test2.Examplecode()
+	test2.Examplecode("testing")
 	test3.Tmain3()
 	t3.Tmain3Special()
 	a.Tmain4()
