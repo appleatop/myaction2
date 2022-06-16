@@ -22,5 +22,5 @@ RUN ls -al /app/mainprogram
 COPY --from=build /build/entrypoint.sh ./
 RUN chmod 755 /app/entrypoint.sh
 # CMD ["/app/entrypoint.sh"]
-CMD ["/app/entrypoint_notexist.sh"]
+CMD ["/app/entrypoint.sh"]
 
