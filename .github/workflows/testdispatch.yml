@@ -2,8 +2,8 @@ name: Test Dispatch
 on:
   push: 
     branches:
-      -'main'
-      -'!test/**'
+      - 'workflow**'
+      - '!test/**'
   workflow_dispatch:
     inputs:
       user:

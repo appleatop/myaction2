@@ -1,4 +1,4 @@
-name: Test Reuse
+name: Test Secret Inherit 
 on:
   workflow_call:
     inputs: 

@@ -2,8 +2,9 @@ name: Test Push
 on:
   push: 
     branches:
-      -'main'
-      -'!test/**'
+      - 'main'
+      - 'workflow**'
+      - '!test/**'
 jobs:
   Docker-Build-Test:
     runs-on: ubuntu-latest
