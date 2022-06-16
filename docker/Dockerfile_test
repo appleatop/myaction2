@@ -1,0 +1,13 @@
+FROM debian:bullseye AS docker_test
+WORKDIR /app
+RUN echo "docker_test" > /app/readme
+
+FROM alpine:latest AS test_target1
+WORKDIR /test_target1
+COPY --from=docker_test /app/readme ./
+RUN echo "test_target1" >> /test_target1/readme
+
+FROM alpine:latest AS test_target2
+WORKDIR /test_target2
+COPY --from=docker_test /app/readme ./
+RUN echo "test_target2" >> /test_target2/readme

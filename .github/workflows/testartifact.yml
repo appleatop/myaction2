@@ -1,0 +1,67 @@
+name: Test Artifacts  
+on:
+  workflow_dispatch:
+    inputs:
+      user:
+        description: 'user'     
+      modules:
+        description: 'modules to test' 
+jobs:
+  Docker-Artifacts-Upload:
+    runs-on: ubuntu-latest
+    env: 
+      DisplayText: 'Test Push Display:' 
+    steps:
+      - run: echo "$DisplayText ${{inputs.user}} ${{inputs.modules}}"
+      - name: Checkout Repository Code
+        uses: actions/checkout@v3
+        id: repository_checkout
+      - name: Create Docker Image
+        run: | 
+          docker build -t docker_testpush --target docker_test -f docker/Dockerfile_test . 
+          docker build -t docker_test_target1 --target test_target1 -f docker/Dockerfile_test . 
+          docker build -t docker_test_target2 --target test_target2 -f docker/Dockerfile_test . 
+      - name: Save Docker Image
+        run: |          
+          mkdir ./docker_artifacts
+          docker save docker_testpush > docker_artifacts/docker_testpush_image.tar
+          docker save docker_test_target1 > docker_artifacts/docker_test_target1_image.tar
+          docker save docker_test_target2 > docker_artifacts/docker_test_target2_image.tar
+          echo "docker_testpush" > docker_artifacts/docker_testpush_tag 
+          echo "docker_testtarget1" > docker_artifacts/docker_test_target1_tag 
+          echo "docker_testtarget2" > docker_artifacts/docker_test_target2_tag 
+      - name: Upload Release Docker Artifacts 
+        id: docker_upload
+        uses: actions/upload-artifact@v3
+        with: 
+          name: Docker-Linux-Release-Image
+          path: docker_artifacts 
+          retention-days: 1
+  Docker-Artifacts-Download:
+    needs: Docker-Artifacts-Upload
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          mkdir docker_artifacts
+      - name: Download Release Docker Artifacts
+        id: docker_download
+        uses: actions/download-artifact@v3
+        with: 
+          name: Docker-Linux-Release-Image
+          path: docker_artifacts 
+      - name: Load Docker
+        id: docker_load
+        run: | 
+          cd docker_artifacts
+          docker load < docker_testpush_image.tar
+          docker load < docker_test_target1_image.tar
+          docker load < docker_test_target2_image.tar
+          docker image ls 
+      - name: Run Docker 
+        id: docker_run
+        run: |
+          docker run docker_testpush cat readme
+          docker run docker_test_target1 cat readme
+          docker run docker_test_target2 cat readme
+
+      

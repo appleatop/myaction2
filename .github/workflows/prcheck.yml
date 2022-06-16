@@ -1,0 +1,49 @@
+name: PR Checking 
+on: 
+  workflow_dispatch:
+    inputs:
+      modules:
+        description: 'modules to test' 
+jobs:
+  Workflow-Dispatch-Actions:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch'}}
+    steps:
+      - name: Display Workflow Display Info
+        run: |
+          echo "Workflow Dispatch ${{github.event.inputs.modules}}"
+          echo "Requested by ${{github.event.inputs.user}}"
+  Test-Secret-Actions: 
+    runs-on: ubuntu-latest
+    env: 
+      my_user_secret: ${{secrets.USER_SECRETCODE}}
+      my_test_secret: ${{secrets.TEST_SECRETCODE}}
+    steps: 
+      - name: Checkout Repository Code
+        uses: actions/checkout@v3
+        id: repository_checkout
+      - run: echo ${{env.my_user_secret}} ${{env.my_test_secret}}
+      - run: chmod 755 ./testscript.sh && ./testscript.sh
+  Reuseable-TestPush-Actions:
+    uses: ./.github/workflows/testreuse.yml
+    with: 
+      modules: ${{github.event.inputs.modules}} 
+    secrets: 
+      user: ${{secrets.USER_SECRETCODE}}
+  Reuseable-TestInheritSecret-Actions:
+    uses: ./.github/workflows/testinherit.yml
+    secrets: inherit
+    with: 
+      modules: ${{github.event.inputs.modules}} 
+  Build-Docker-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      #prepare the docker for building 
+      - name: Checkout Repository Code
+        uses: actions/checkout@v3
+        id: repository_checkout
+      - name: Prepare Docker for Building
+        id: docker_build
+        run: docker build -t docker_build .
+      - name: Run the test 
+        run: docker run docker_build

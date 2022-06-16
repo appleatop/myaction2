@@ -1,0 +1,9 @@
+# dockerbuildtest/action.yml 
+name: "Docker Build Test"
+description: 'Prepare the docker, build and test the code' 
+outputs: 
+  status: # status of the build and test
+    description: 'The status of the building and testing' 
+runs: 
+  using: 'docker'
+  image: '${{github.workspace}}/Dockerfile'

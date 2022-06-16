@@ -1,0 +1,35 @@
+name: Test Dispatch 
+on:
+  push: 
+    branches:
+      -'main'
+      -'!test/**'
+  workflow_dispatch:
+    inputs:
+      user:
+        description: 'user'     
+      modules:
+        description: 'modules to test' 
+jobs:
+  Docker-Build-Test:
+    runs-on: ubuntu-latest
+    env: 
+      DisplayText: 'Test Push Display:' 
+    steps:
+      - run: echo "$DisplayText ${{inputs.user}} ${{inputs.modules}}"
+      - name: Checkout Repository Code
+        uses: actions/checkout@v3
+        id: repository_checkout
+      - name: Create Docker Image
+        run: | 
+          docker build -t docker_testpush --target docker_test -f docker/Dockerfile_test . 
+          docker build -t docker_test_target1 --target test_target1 -f docker/Dockerfile_test . 
+          docker build -t docker_test_target2 --target test_target2 -f docker/Dockerfile_test . 
+      - name: Run Docker 
+        id: docker_run
+        run: |
+          docker run docker_testpush cat readme
+          docker run docker_test_target1 cat readme
+          docker run docker_test_target2 cat readme
+
+      
