@@ -1,4 +1,7 @@
 name: PR Checking 
+push: 
+  branches: 
+    - 'main'
 on: 
   workflow_dispatch:
     inputs:
