@@ -1,0 +1,27 @@
+FROM golang:1.18.2-bullseye AS base_image 
+WORKDIR /build
+COPY go.mod go.sum ./
+RUN go mod download  
+COPY . ./  
+RUN cd /build/test1/mainprogram &&\
+ go run mainprogram.go &&\
+ go build -o mainprogram mainprogram.go
+
+# TODO - can't get version in contaier
+FROM build AS build_image 
+WORKDIR /test
+COPY --from=build /build ./
+RUN cd /test/test2 &&\
+	go test
+
+# TODO - can't get version in contaier
+FROM alpine:latest AS test_image 
+WORKDIR /app/
+COPY --from=build /build/test1/mainprogram/mainprogram ./
+RUN ls -al /app/mainprogram
+COPY --from=build /build/entrypoint.sh ./
+COPY --from=build /build/testintegration.sh ./
+RUN chmod 755 /app/entrypoint.sh
+RUN chmod 755 /app/testintegration.sh
+CMD ["/app/entrypoint.sh"]
+

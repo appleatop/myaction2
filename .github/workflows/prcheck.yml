@@ -38,7 +38,7 @@ jobs:
     secrets: inherit
     with: 
       modules: ${{github.event.inputs.modules}} 
-  Build-Docker-Actions:
+  Inegration-Test-Actions:
     runs-on: ubuntu-latest
     steps:
       #prepare the docker for building 
@@ -47,6 +47,6 @@ jobs:
         id: repository_checkout
       - name: Prepare Docker for Building
         id: docker_build
-        run: docker build -t docker_build .
+        run: docker build -t docker_test_integration -f Dockerfile_test_image .  
       - name: Run the test 
-        run: docker run docker_build
+        run: docker run docker_test_integration /app/testintegation.sh
