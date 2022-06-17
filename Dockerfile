@@ -19,8 +19,7 @@ FROM alpine:latest AS integration_test
 WORKDIR /app/
 COPY --from=test /test ./
 COPY --from=build /build/test1/mainprogram ./
-COPY --from=build /build/test1/mainprogram ./mainprogram2
-RUN chmod 755 ./mainprogram2
+RUN cp mainprogram mainprogram2 && chmod 755 ./mainprogram2
 COPY --from=build /build/entrypoint.sh ./
 COPY --from=build /build/testintegration.sh ./
 RUN chmod 755 /app/entrypoint.sh
