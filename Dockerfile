@@ -24,5 +24,6 @@ COPY --from=build /build/entrypoint.sh ./
 COPY --from=build /build/testintegration.sh ./
 RUN chmod 755 /app/entrypoint.sh
 RUN chmod 755 /app/testintegration.sh
+RUN ls -al /app/
 CMD ["/app/entrypoint.sh"]
 
