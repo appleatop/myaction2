@@ -50,6 +50,6 @@ jobs:
         id: repository_checkout
       - name: Prepare Docker for Building
         id: docker_build
-        run: docker build -t docker_test_integration -f Dockerfile_test_image .  
+        run: docker build -t docker_test_integration .  
       - name: Run the test 
         run: docker run docker_test_integration /app/testintegation.sh
