@@ -28,7 +28,7 @@ func TestExampleCode(t *testing.T) {
 	if output != expect {
 		t.Errorf("The result (%s) does not match %s", output, expect)
 	} else {
-		q.Q("run successfully")
+		q.Q("run successfully", expect)
 	}
 
 }
