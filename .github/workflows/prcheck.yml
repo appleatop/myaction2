@@ -52,4 +52,4 @@ jobs:
         id: docker_build
         run: docker build -t docker_test_integration .  
       - name: Run the test 
-        run: docker run docker_test_integration /app/testintegation.sh
+        run: docker run docker_test_integration /app/testintegration.sh
