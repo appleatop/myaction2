@@ -33,3 +33,19 @@ func TestExampleCode(t *testing.T) {
 	}
 
 }
+
+func TestExampleCode2(t *testing.T) {
+	fmt.Println("testing testprogram 2/ example code #2 ")
+	q.Q("testing testprogram 2/ example code #2 ")
+	//output := test2.Examplecode("test pass")
+	//output := test2.Examplecode("test error")
+	output := test2.Examplecode("test new 2")
+	expect := "test2/examplecode: test new 2"
+	if output != expect {
+		t.Errorf("The result (%s) does not match %s", output, expect)
+	} else {
+		q.Q("run successfully: ", expect)
+
+	}
+
+}
