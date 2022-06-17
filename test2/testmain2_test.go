@@ -33,3 +33,7 @@ func TestExampleCode(t *testing.T) {
 	}
 
 }
+
+func TestTmp(t *testing.T) {
+	fmt.Println("TestTmp")
+}
