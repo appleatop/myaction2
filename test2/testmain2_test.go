@@ -34,7 +34,6 @@ func TestExampleCode(t *testing.T) {
 
 }
 
-
 func TestExampleCode2(t *testing.T) {
 	fmt.Println("testing testprogram 2/ example code #2 ")
 	q.Q("testing testprogram 2/ example code #2 ")
@@ -46,9 +45,8 @@ func TestExampleCode2(t *testing.T) {
 		t.Errorf("The result (%s) does not match %s", output, expect)
 	} else {
 		q.Q("run successfully: ", expect)
-
 	}
-
+}
 
 func TestTmp(t *testing.T) {
 	fmt.Println("TestTmp")
