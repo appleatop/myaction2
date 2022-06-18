@@ -34,6 +34,7 @@ func TestExampleCode(t *testing.T) {
 
 }
 
+
 func TestExampleCode2(t *testing.T) {
 	fmt.Println("testing testprogram 2/ example code #2 ")
 	q.Q("testing testprogram 2/ example code #2 ")
@@ -48,4 +49,7 @@ func TestExampleCode2(t *testing.T) {
 
 	}
 
+
+func TestTmp(t *testing.T) {
+	fmt.Println("TestTmp")
 }
