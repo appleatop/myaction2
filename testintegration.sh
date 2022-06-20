@@ -6,4 +6,5 @@ time=$(date)
 /app/mainprogram2
 /app/test2_program
 /app/test3_program
+/app/test4_program
 echo "::set-output name=status::building@$time"
