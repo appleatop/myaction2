@@ -37,3 +37,7 @@ func TestRandom1(t *testing.T) {
 func TestRandom2(t *testing.T) {
 	fmt.Println("TestRandom2")
 }
+
+func TestMain3Tmp(t *testing.T) {
+	fmt.Println("TestMain3Tmp")
+}

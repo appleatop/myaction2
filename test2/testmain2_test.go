@@ -51,3 +51,7 @@ func TestExampleCode2(t *testing.T) {
 func TestTmp(t *testing.T) {
 	fmt.Println("TestTmp")
 }
+
+func TestMain2Tmp(t *testing.T) {
+	fmt.Println("TestMain2Tmp")
+}
